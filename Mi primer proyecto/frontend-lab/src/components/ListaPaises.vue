@@ -19,7 +19,9 @@
           <td>{{ pais.Idioma }}</td>
           <td>
             <button class="btn btn-secondary btn-sm">Editar</button>
-            <button class="btn btn-danger btn-sm">Eliminar</button>
+            <button class="btn btn-danger btn-sm"
+              v-on:click="eliminarFila(index)"
+            >Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -40,6 +42,12 @@
         {nombre: "Alemania", continente: "Europa", Idioma: "Alemán"},
         ],
       };
+    },
+    methods:{
+      eliminarFila(index) {
+        // Splice: método de JS para añadir o eliminar elemento
+        this.paises.splice(index, 1);
+      }
     },
   };
 </script>
