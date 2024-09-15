@@ -16,7 +16,7 @@
         <tr v-for="(pais, index) of paises" :key="index">
           <td>{{ pais.nombre }}</td>
           <td>{{ pais.continente }}</td>
-          <td>{{ pais.Idioma }}</td>
+          <td>{{ pais.idioma }}</td>
           <td>
             <button class="btn btn-secondary btn-sm">Editar</button>
             <button class="btn btn-danger btn-sm"
@@ -30,28 +30,32 @@
 </template>
 
 <script>
-  export default {
-    name: "ListaPaises",
-    data() {
-      return {
-        paises: [
-        {nombre: "Costa Rica", continente: "América", Idioma: "Español"},
-        {nombre: "Japón", continente: "Asia", Idioma: "Japonés"},
-        {nombre: "Corea del Sur", continente: "Asia", Idioma: "Coreano"},
-        {nombre: "Italia", continente: "Europa", Idioma: "Italiano"},
-        {nombre: "Alemania", continente: "Europa", Idioma: "Alemán"},
-        ],
-      };
+import axios from 'axios';
+export default {
+  name: "ListaPaises",
+  data() {
+    return {
+      paises : []
+    };
+  },
+  methods:{
+    eliminarFila(index) {
+      // Splice: método de JS para añadir o eliminar elemento
+      this.paises.splice(index, 1);
     },
-    methods:{
-      eliminarFila(index) {
-        // Splice: método de JS para añadir o eliminar elemento
-        this.paises.splice(index, 1);
-      }
+    obtenerTareas() {
+      axios.get("https://localhost:7015/api/Paises").then((response) => {
+        console.log(response.data);
+        this.paises = response.data;
+      });
     },
-  };
+  },
+  created: function () {
+    this.obtenerTareas();
+  },
+};
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>
